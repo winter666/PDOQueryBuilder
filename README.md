@@ -1,0 +1,1 @@
+# Package for simple use PDO queries to database
