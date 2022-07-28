@@ -1,0 +1,19 @@
+{
+    "name": "serge/pdo-query-builder",
+    "description": "Package for easy using queries from database",
+    "type": "library",
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "Serge\\PdoQueryBuilder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Davut",
+            "email": "sergeevdavut@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
