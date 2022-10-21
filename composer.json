@@ -16,6 +16,24 @@
     ],
     "minimum-stability": "dev",
     "require": {
-      "ext-pdo": "*"
+        "ext-pdo": "*",
+        "serge/dotenv": "@dev",
+        "serge/config": "@dev"
+    },
+    "repositories": {
+        "dotenv": {
+            "type": "path",
+            "url": "/OpenServer/domains/packages/dotenv",
+            "options": {
+                "symlink": true
+            }
+        },
+        "config": {
+            "type": "path",
+            "url": "/OpenServer/domains/packages/config",
+            "options": {
+                "symlink": true
+            }
+        }
     }
 }

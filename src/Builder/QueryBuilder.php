@@ -10,6 +10,7 @@ use Serge\PdoQueryBuilder\Builder\Clause\DeleteClause;
 use Serge\PdoQueryBuilder\Builder\Clause\SelectClause;
 use Serge\PdoQueryBuilder\Builder\Clause\UpdateClause;
 use Serge\PdoQueryBuilder\Builder\Clause\WhereClause;
+use Serge\PdoQueryBuilder\Connection;
 use Serge\PdoQueryBuilder\Model;
 
 class QueryBuilder
@@ -24,6 +25,8 @@ class QueryBuilder
     private DeleteClause $deleteClause;
     private CreateClause $createClause;
 
+    private Connection $connection;
+
     public function __construct(array $options)
     {
         $this->table = $options['table'];
@@ -33,6 +36,7 @@ class QueryBuilder
         $this->deleteClause = new DeleteClause($options['table']);
         $this->createClause = new CreateClause($options['table']);
         $this->whereClause = new WhereClause();
+        $this->connection = Connection::getInstance();
     }
 
     public function select(array $fields): QueryBuilder
@@ -52,11 +56,13 @@ class QueryBuilder
        return $this;
     }
 
-    public function first(\PDO $dbh): Model|null
+    // execute
+    public function first(): Model|null
     {
         $this->limit = 1;
         $exec = $this->makeSelectQueryString();
-        $state = $dbh->prepare($exec['query']);
+        $state = $this->connection->getConnection()
+            ->prepare($exec['query']);
         $state->execute($exec['values']);
         $result = $state->fetch();
         if ($result) {
@@ -66,10 +72,12 @@ class QueryBuilder
         return null;
     }
 
-    public function get(\PDO $dbh): array
+    // execute
+    public function get(): array
     {
         $exec = $this->makeSelectQueryString();
-        $state = $dbh->prepare($exec['query']);
+        $state = $this->connection->getConnection()
+            ->prepare($exec['query']);
         $state->execute($exec['values']);
         $result = $state->fetchAll();
         if ($result) {
@@ -79,26 +87,32 @@ class QueryBuilder
         return [];
     }
 
-    public function update(\PDO $dbh, array $values): bool
+    // execute
+    public function update(array $values): bool
     {
         $this->updateClause->push($values);
         $exec = $this->makeUpdateQueryString();
-        $state = $dbh->prepare($exec['query']);
+        $state = $this->connection->getConnection()
+            ->prepare($exec['query']);
         return $state->execute($exec['values']);
     }
 
-    public function delete(\PDO $dbh): bool
+    // execute
+    public function delete(): bool
     {
         $exec = $this->makeDeleteQueryString();
-        $state = $dbh->prepare($exec['query']);
+        $state = $this->connection->getConnection()
+            ->prepare($exec['query']);
         return $state->execute($exec['values']);
     }
 
-    public function create(\PDO $dbh, array $data)
+    // execute
+    public function create(array $data)
     {
         $this->createClause->push($data);
         $exec = $this->makeCreateQueryString();
-        $state = $dbh->prepare($exec['query']);
+        $state = $this->connection->getConnection()
+            ->prepare($exec['query']);
         return $state->execute($exec['values']);
     }
 

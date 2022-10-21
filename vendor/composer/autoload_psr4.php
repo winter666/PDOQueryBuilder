@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Serge\\PdoQueryBuilder\\' => array($baseDir . '/src'),
+    'Serge\\Dotenv\\' => array($vendorDir . '/serge/dotenv/src'),
+    'Serge\\Config\\' => array($vendorDir . '/serge/config/src'),
 );

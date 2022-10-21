@@ -10,6 +10,8 @@ class ComposerStaticInit6cddec6c0e43e371829fd301925daef5
         'S' => 
         array (
             'Serge\\PdoQueryBuilder\\' => 22,
+            'Serge\\Dotenv\\' => 13,
+            'Serge\\Config\\' => 13,
         ),
     );
 
@@ -17,6 +19,14 @@ class ComposerStaticInit6cddec6c0e43e371829fd301925daef5
         'Serge\\PdoQueryBuilder\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Serge\\Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/serge/dotenv/src',
+        ),
+        'Serge\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/serge/config/src',
         ),
     );
 
